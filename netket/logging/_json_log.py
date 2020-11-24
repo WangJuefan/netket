@@ -15,6 +15,8 @@ def _exists_json(prefix):
 def _to_json(ob):
     if hasattr(ob, "to_json"):
         return ob.to_json()
+    elif _np.isscalar(ob):
+        return ob
     # array-like (for example CUDA or Jax arrays) satisfy the __array__
     # protocol.
     # https://numpy.org/doc/stable/reference/generated/numpy.array.html
