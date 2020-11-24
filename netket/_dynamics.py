@@ -292,6 +292,7 @@ class TimeEvolution(AbstractVariationalDriver):
 
     def _log_additional_data(self, obs, step):
         obs["t"] = self.t
+        self._driver._log_additional_data(obs, step)
 
     def _forward_and_backward(self):
         integrator = self._integrator
