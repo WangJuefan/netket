@@ -97,6 +97,19 @@ class NetworkX(AbstractGraph):
             str(type(self)).split(".")[-1][:-2], self.n_nodes
         )
 
+    def __pow__(self, exponent):
+        if not isinstance(exponent, int):
+            raise ValueError(
+                "Exponeent {} not valid: only integers are supported".format(exponent)
+            )
+
+        base = self
+        g = self
+        for i in range(1, exponent):
+            g = disjoint_union(g, base)
+
+        return g
+
 
 def Graph(nodes=[], edges=[]):
     r"""
@@ -196,6 +209,8 @@ def DoubledGraph(graph):
 
     dedges = list(graph.edges())
     n_v = graph.n_nodes
+
+    dnodes = [i for i in range(n_v)] + [i + n_v for i in range(n_v)]
 
     dnodes = [i for i in range(n_v)] + [i + n_v for i in range(n_v)]
 
